@@ -1,11 +1,11 @@
 const express = require('express');
 const http = require('http');
-const socketIo = require('socket.io');
+const {Server} = require('socket.io');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const { v4: uuidv4 } = require('uuid');
-const Room = require('./models/Room');
+const Room = require('./schemas/Room');
 const bcrypt = require('bcryptjs');
 
 dotenv.config();
@@ -13,11 +13,12 @@ dotenv.config();
 const app = express();
 const server = http.createServer(app);
 
-
+const PORT = process.env.PORT || 5000;
 const frontendURL = process.env.FRONTEND_URL;
 const allowedOrigins = [
-  'http://localhost:3000', 
-  frontendURL
+  'http://localhost:3000',
+  'https://collab-board-omega-nine.vercel.app',
+  'https://collab-board-git-main-idtsitsharshs-projects.vercel.app'
 ];
 
 if (frontendURL) {
@@ -26,22 +27,47 @@ if (frontendURL) {
 
 const corsOptions = {
   origin: (origin, callback) => {
-    
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
+    console.log("🔎 CORS check origin:", origin);
+    if (
+      !origin ||
+      allowedOrigins.includes(origin) ||
+      (origin.startsWith("https://") && origin.endsWith(".vercel.app"))
+    ) {
+      return callback(null, true);
     }
+    console.log("❌ CORS rejected for:", origin);
+    callback(new Error("CORS not allowed"));
   },
+  methods: ["GET", "POST"],
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
 
 app.use(cors(corsOptions));
+app.use(express.json());
 
-const io = socketIo(server, {
-  cors: corsOptions,
+const io = new Server(server, {
+  cors: {
+    origin: allowedOrigins,
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
+
+
+// After corsOptions:
+console.log("✅ Allowed origins:", allowedOrigins);
+
+// Before server.listen:
+console.log("➡ Starting server on port:", PORT);
+
+// Inside io.on("connection"):
+console.log("🟢 Inside io.on connection");
+
+// Inside io.use (if using middleware):
+io.use((socket, next) => {
+  console.log("🔁 Authorizing socket from origin:", socket.handshake.headers.origin);
+  next(); // allow all
 });
 
 app.use(express.json());
@@ -545,7 +571,7 @@ app.get('/api/rooms', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 5000;
+// const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
   console.log(useMongoDB ? 'Using MongoDB for data persistence' : 'Using in-memory storage for data persistence');

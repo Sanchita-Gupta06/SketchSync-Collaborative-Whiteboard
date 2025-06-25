@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 5000;
 const frontendURL = process.env.FRONTEND_URL;
 const allowedOrigins = [
   'http://localhost:3000',
-  'https://collab-board-omega-nine.vercel.app',
-  'https://collab-board-git-main-idtsitsharshs-projects.vercel.app'
+  'hsketch-sync-collaborative-whiteboar-kohl.vercel.app',
+  'sketch-sync-collaborative-git-fc8a04-sanchita-gupta06s-projects.vercel.app'
 ];
 
 if (frontendURL) {

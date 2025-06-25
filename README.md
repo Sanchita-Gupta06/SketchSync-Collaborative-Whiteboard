@@ -4,7 +4,7 @@ SketchSync is an interactive, real-time collaborative whiteboard built using the
 
 ### Deployed Links :
 
-*   **Frontend - Vercel :** [Live App on Vercel](https://sketch-sync-collaborative-whiteboar-kohl.vercel.app/)
+*   **Frontend - Vercel :** [Live App](https://sketch-sync-collaborative-whiteboar-kohl.vercel.app/)
 *   **Backend - Railway** 
 
 ---

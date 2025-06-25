@@ -181,8 +181,8 @@ function Home() {
       }
     }
     try {
-      const res = await fetch(
-        (process.env.REACT_APP_SOCKET_URL || 'http://localhost:5000') + '/api/rooms',
+      const res = await fetch
+        ('https://sketchsync-collaborative-whiteboard-production-b8e1.up.railway.app/api/rooms',
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },

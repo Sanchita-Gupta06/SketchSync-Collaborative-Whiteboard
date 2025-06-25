@@ -2,6 +2,11 @@
 
 SketchSync is an interactive, real-time collaborative whiteboard built using the MERN stack (MongoDB, Express, React, Node.js) and Socket.IO. It enables multiple users to seamlessly draw, write, and brainstorm together on a shared canvas — all in real time. With integrated chat, dynamic drawing tools, and live room synchronization, SketchSync replicates the feel of a physical whiteboard, optimized for remote teamwork, classrooms, and creative sessions.
 
+### Deployed Links :
+
+*   **Frontend (Vercel):** [Live App on Vercel](https://sketch-sync-collaborative-whiteboar-kohl.vercel.app/)
+*   **Backend (Railway):** 
+
 ---
 
 ## Key Features
@@ -40,7 +45,7 @@ SketchSync is an interactive, real-time collaborative whiteboard built using the
 | Frontend   | React, Styled Components, Socket.IO Client, HTML5 Canvas API |
 | Backend    | Node.js, Express, Socket.IO, Mongoose            |
 | Database   | MongoDB (via MongoDB Atlas)                      |
-
+| Deployment| [Vercel](https://vercel.com/), [Railway](https://railway.app/)    
 ---
 
 ## Project Structure
